@@ -8,7 +8,7 @@ A customer submits a return request using a simple form.
 The request is sent to an n8n workflow.
 The workflow checks the data, applies rules, saves the return, and notifies the team.
 
----
+----
 
 How it works
 
@@ -26,7 +26,7 @@ How it works
 12. n8n sends a Slack message to the correct channel.
 13. n8n returns an HTTP response to the client.
 
----
+----
 
 Webhook endpoint
 
@@ -39,7 +39,7 @@ The workflow must be ACTIVE for this endpoint to work.
 
 You can find my google sheet file shared here : https://docs.google.com/spreadsheets/d/1JgFE5DXQSSWsJDUX27WBdig2w_LsSeQWS1PUIVAtyoo/edit?usp=sharing
 
----
+----
 
 Request example
 
@@ -52,7 +52,7 @@ sku: PROD-001
 reason: Défectueux
 product_condition: Bon
 
----
+----
 
 Eligibility rules
 
@@ -78,7 +78,7 @@ the reason is "Défectueux" AND
 the product is "Endommagé"
 → refund is 100%
 
----
+----
 
 Anti-duplicate rule
 
@@ -88,7 +88,7 @@ If a return already exists with this key and status:
 PENDING or APPROVED
 → the request is refused with HTTP 409.
 
----
+----
 
 Return ID
 
@@ -98,7 +98,7 @@ RET-YYYYMMDD-XXXX
 Example:
 RET-20260210-A7F2
 
----
+----
 
 Notifications
 
@@ -110,7 +110,7 @@ Slack message sent to #support-general
 
 Slack errors do not block the workflow.
 
----
+----
 
 API responses
 
@@ -119,7 +119,7 @@ API responses
 409 : duplicate return
 401 : invalid token
 
----
+----
 
 Data storage (Google Sheets)
 
@@ -128,7 +128,7 @@ Products : product information
 Returns : return requests
 Logs : workflow logs
 
----
+----
 
 Tools used
 
@@ -137,7 +137,7 @@ Tools used
 - Slack
 - HTML + JavaScript  TO CREATE A FORM
 
----
+----
 
 Goal of this project
 
