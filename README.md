@@ -1,4 +1,4 @@
-TechShop – Automated Returns (n8n)
+TechShop | Automated Returns (n8n)
 
 What is this project?
 This project automates customer product return requests.
@@ -133,7 +133,7 @@ Tools used
 - n8n (local)
 - Google Sheets
 - Slack
-- HTML + JavaScript (simple form)
+- HTML + JavaScript  TO CREATE A FORM
 
 ---
 
