@@ -35,18 +35,18 @@
 <body>
 
 <h1>Demande de retour</h1>
-<p>Merci de remplir ce formulaire pour demander un retour produit.</p>
+<p>Remplissez les informations ci-dessous.</p>
 
-<label>Numéro de commande</label>
-<input id="order_id" required placeholder="ORD-2025-001">
+<label for="order_id">Numéro de commande</label>
+<input id="order_id" required placeholder="ORD-2025-001" autocomplete="off">
 
-<label>Email</label>
-<input id="customer_email" type="email" required placeholder="john@example.com">
+<label for="customer_email">Email</label>
+<input id="customer_email" type="email" required placeholder="john@example.com" autocomplete="email">
 
-<label>Référence produit (SKU)</label>
-<input id="sku" required placeholder="PROD-001">
+<label for="sku">Référence produit (SKU)</label>
+<input id="sku" required placeholder="PROD-001" autocomplete="off">
 
-<label>Motif du retour</label>
+<label for="reason">Motif du retour</label>
 <select id="reason" required>
   <option value="Défectueux">Défectueux</option>
   <option value="Trop petit">Trop petit</option>
@@ -55,48 +55,46 @@
   <option value="Changement d'avis">Changement d'avis</option>
 </select>
 
-<label>État du produit</label>
+<label for="product_condition">État du produit</label>
 <select id="product_condition" required>
   <option value="Comme neuf">Comme neuf</option>
   <option value="Bon">Bon</option>
   <option value="Endommagé">Endommagé</option>
 </select>
 
-<button id="submit">Envoyer la demande</button>
+<button id="submit" type="button">Envoyer</button>
 
 <div id="result" class="status"></div>
 
 <script>
-  // 🔒 Hidden constants (exam-friendly)
   const WEBHOOK_URL = "http://localhost:5678/webhook-test/returns/intake";
   const TECHSHOP_TOKEN = "my_secret_token";
 
-  function generateRequestId() {
-    return (
-      "req_" +
-      new Date().toISOString().slice(0, 10).replace(/-/g, "") +
-      "_" +
-      Math.random().toString(36).substring(2, 8)
-    );
+  const $ = (id) => document.getElementById(id);
+
+  function requestId() {
+    const d = new Date().toISOString().slice(0, 10).replace(/-/g, "");
+    const r = Math.random().toString(36).slice(2, 8);
+    return `req_${d}_${r}`;
   }
 
-  document.getElementById("submit").addEventListener("click", async () => {
-    const payload = {
-      request_id: generateRequestId(),
-      created_at: new Date().toISOString(),
-      channel: "contact_form",
-      order_id: document.getElementById("order_id").value.trim(),
-      customer_email: document.getElementById("customer_email").value.trim(),
-      sku: document.getElementById("sku").value.trim(),
-      reason: document.getElementById("reason").value,
-      product_condition: document.getElementById("product_condition").value
-    };
-
-    const result = document.getElementById("result");
+  $("submit").addEventListener("click", async () => {
+    const result = $("result");
     result.textContent = "Envoi en cours...";
 
+    const payload = {
+      request_id: requestId(),
+      created_at: new Date().toISOString(),
+      channel: "contact_form",
+      order_id: $("order_id").value.trim(),
+      customer_email: $("customer_email").value.trim(),
+      sku: $("sku").value.trim(),
+      reason: $("reason").value,
+      product_condition: $("product_condition").value
+    };
+
     try {
-      const response = await fetch(WEBHOOK_URL, {
+      const res = await fetch(WEBHOOK_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -105,10 +103,10 @@
         body: JSON.stringify(payload)
       });
 
-      const text = await response.text();
-      result.textContent = `HTTP ${response.status}\n\n${text}`;
-    } catch (err) {
-      result.textContent = "Erreur réseau : " + err.message;
+      const text = await res.text();
+      result.textContent = `HTTP ${res.status}\n\n${text}`;
+    } catch (e) {
+      result.textContent = `Erreur réseau : ${e.message}`;
     }
   });
 </script>
