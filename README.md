@@ -37,6 +37,8 @@ x-techshop-token = my_secret_token
 
 The workflow must be ACTIVE for this endpoint to work.
 
+You can find my google sheet file shared here : https://docs.google.com/spreadsheets/d/1JgFE5DXQSSWsJDUX27WBdig2w_LsSeQWS1PUIVAtyoo/edit?usp=sharing
+
 ---
 
 Request example
