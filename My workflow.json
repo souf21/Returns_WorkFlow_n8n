@@ -1,0 +1,1114 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "6b3d13ac-933a-45f4-aed7-4b794789fc14",
+              "leftValue": "={{$json.ok}}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        416,
+        0
+      ],
+      "id": "251bcda5-0afc-455a-a64e-f3d2dd3619aa",
+      "name": "If Ok"
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1JgFE5DXQSSWsJDUX27WBdig2w_LsSeQWS1PUIVAtyoo/edit?gid=316008437#gid=316008437",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Orders",
+          "mode": "name"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        576,
+        -304
+      ],
+      "id": "ad8d0464-470b-4fd9-9710-0a26df77aaf6",
+      "name": "Lookup order",
+      "credentials": {
+        "googleApi": {
+          "id": "HAP171yklVw6azAU",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "returns/intake",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "fb64aafb-61e9-4334-86bd-1f25bc1f2fd9",
+      "name": "returns webhook",
+      "webhookId": "f6db9d2a-41e7-4936-adc0-adeb624ff983"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "a6293ae7-095e-40c2-a5be-1c44c9f55bad",
+              "leftValue": "={{$json.found}}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        928,
+        -304
+      ],
+      "id": "41860690-36ef-4b36-9a02-c177bf5e45af",
+      "name": "If Order found"
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1JgFE5DXQSSWsJDUX27WBdig2w_LsSeQWS1PUIVAtyoo/edit?gid=316008437#gid=316008437",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Products",
+          "mode": "name"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1136,
+        -512
+      ],
+      "id": "e80eb90e-a430-49f1-8593-54acdd8d75c5",
+      "name": "Lookup Product",
+      "credentials": {
+        "googleApi": {
+          "id": "HAP171yklVw6azAU",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "5f7e5e42-21df-488e-9aeb-cad782c5f0a4",
+              "leftValue": "={{$json.found}}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "looseTypeValidation": "={{ false }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1504,
+        -512
+      ],
+      "id": "7876ae5e-fd01-4501-b09f-87bafc632607",
+      "name": "If Product found"
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1JgFE5DXQSSWsJDUX27WBdig2w_LsSeQWS1PUIVAtyoo/edit?gid=316008437#gid=316008437",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Returns",
+          "mode": "name"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1712,
+        -720
+      ],
+      "id": "6397bce4-d3f9-4905-b113-8406687faddd",
+      "name": "Read returns",
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleApi": {
+          "id": "HAP171yklVw6azAU",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "240495ab-05fc-463b-8733-8891a473fa01",
+              "leftValue": "={{$json.is_duplicate}}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        2128,
+        -720
+      ],
+      "id": "35d13216-1606-4d93-9b48-07375c910f9a",
+      "name": "IF duplicate"
+    },
+    {
+      "parameters": {
+        "jsCode": "const p = $node[\"ValidateNormalize\"].json.payload;\nconst o = $node[\"FindOrder\"].json.order;\nconst pr = $node[\"FindProduct\"].json.product;\nconst dedupe_key = $node[\"CheckDuplicate\"].json.dedupe_key;\n\nconst allowed = [\"Défectueux\",\"Trop petit\",\"Trop grand\",\"Erreur commande\",\"Changement d'avis\"];\nconst perc = { \"Comme neuf\": 1, \"Bon\": 0.8, \"Endommagé\": 0.5 };\n\nconst orderDate = new Date(o.order_date);\nconst days = Math.floor((Date.now() - orderDate.getTime()) / 86400000);\n\nlet eligibility = true;\nlet eligibility_reason = \"OK\";\n\nif (Number.isNaN(orderDate.getTime())) {\n  eligibility = false;\n  eligibility_reason = \"Date de commande invalide\";\n} else if (days > 30) {\n  eligibility = false;\n  eligibility_reason = `Délai de rétractation dépassé (${days} jours)`;\n} else if (!allowed.includes(p.reason)) {\n  eligibility = false;\n  eligibility_reason = \"Motif non reconnu\";\n} else if (!(p.product_condition in perc)) {\n  eligibility = false;\n  eligibility_reason = \"État du produit invalide\";\n}\n\nlet percent = eligibility ? perc[p.product_condition] : 0;\n\nif (\n  eligibility &&\n  Number(pr.warranty_months ?? 0) > 0 &&\n  p.reason === \"Défectueux\" &&\n  p.product_condition === \"Endommagé\"\n) percent = 1;\n\nconst price = Number(pr.purchase_price ?? 0);\nconst refund_amount = eligibility ? Math.round(price * percent * 100) / 100 : 0;\n\nif (eligibility) {\n  eligibility_reason =\n    percent === 1 ? \"Retour acceptable, remboursement 100%\" :\n    percent === 0.8 ? \"Retour acceptable, remboursement 80%\" :\n    percent === 0.5 ? \"Retour acceptable, remboursement 50%\" :\n    \"Retour acceptable\";\n}\n\nreturn [{\n  json: {\n    eligibility,\n    eligibility_reason,\n    refund_amount,\n    days_since_order: days,\n    dedupe_key,\n    payload: p,\n    order: o,\n    product: pr\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2336,
+        -336
+      ],
+      "id": "733d81e8-8dfd-474d-8dda-56d5f9f896d1",
+      "name": "Compute Eligibility"
+    },
+    {
+      "parameters": {
+        "jsCode": "const EXPECTED_TOKEN = \"my_secret_token\";\n\nconst headers = $json.headers ?? {};\nconst token = headers[\"x-techshop-token\"];\nconst body = $json.body ?? $json;\n\nif (token !== EXPECTED_TOKEN) {\n  return [{ json: { ok: false, error_code: \"UNAUTHORIZED\" } }];\n}\n\nconst required = [\n  \"request_id\",\n  \"created_at\",\n  \"channel\",\n  \"order_id\",\n  \"customer_email\",\n  \"sku\",\n  \"reason\",\n  \"product_condition\",\n];\n\nconst missing = required.filter(\n  (k) => !body[k] || String(body[k]).trim() === \"\"\n);\n\nif (missing.length) {\n  return [{\n    json: {\n      ok: false,\n      error_code: \"VALIDATION_ERROR\",\n      missing_fields: missing,\n    }\n  }];\n}\n\nreturn [{\n  json: {\n    ok: true,\n    payload: {\n      request_id: String(body.request_id).trim(),\n      created_at: String(body.created_at).trim(),\n      channel: String(body.channel).trim(),\n      order_id: String(body.order_id).trim(),\n      customer_email: String(body.customer_email).trim().toLowerCase(),\n      sku: String(body.sku).trim(),\n      reason: String(body.reason).trim(),\n      product_condition: String(body.product_condition).trim(),\n    }\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "83a9a1b6-ad65-424f-9995-81a9ba170b61",
+      "name": "ValidateNormalize"
+    },
+    {
+      "parameters": {
+        "jsCode": "const p = $node[\"ValidateNormalize\"].json.payload;\nconst rows = $input.all();\n\nconst match = rows.find(({ json }) =>\n  String(json.order_id ?? \"\").trim() === p.order_id &&\n  String(json.customer_email ?? \"\").trim().toLowerCase() === p.customer_email\n);\n\nreturn [{\n  json: match ? { found: true, order: match.json } : { found: false }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        752,
+        -304
+      ],
+      "id": "9c938305-ab09-41c7-a625-a2b2db27d25d",
+      "name": "FindOrder"
+    },
+    {
+      "parameters": {
+        "jsCode": "const sku = $node[\"ValidateNormalize\"].json.payload.sku;\nconst rows = $input.all();\n\nconst match = rows.find(({ json }) =>\n  String(json.sku ?? \"\").trim() === sku\n);\n\nreturn [{\n  json: match ? { found: true, product: match.json } : { found: false }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1328,
+        -512
+      ],
+      "id": "eb5adbba-e998-4d45-a427-0059d97c8666",
+      "name": "FindProduct"
+    },
+    {
+      "parameters": {
+        "jsCode": "const p = $node[\"ValidateNormalize\"].json.payload;\nconst key = `${p.order_id}_${p.sku}`;\nconst rows = $input.all();\n\nconst dup = rows.find(({ json }) =>\n  String(json.dedupe_key ?? \"\").trim() === key &&\n  [\"PENDING\", \"APPROVED\"].includes(String(json.status ?? \"\").toUpperCase())\n);\n\nreturn [{\n  json: dup\n    ? { is_duplicate: true, dedupe_key: key, existing_return_id: dup.json.return_id, existing_status: dup.json.status }\n    : { is_duplicate: false, dedupe_key: key }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1920,
+        -720
+      ],
+      "id": "bd5461ee-b888-48cf-920d-74571c638a72",
+      "name": "CheckDuplicate"
+    },
+    {
+      "parameters": {
+        "jsCode": "const d = $json;\nconst p = d.payload;\nconst now = new Date();\n\nconst date = now.toISOString().slice(0, 10).replace(/-/g, \"\");\nconst rand = Math.random().toString(36).slice(2, 6).toUpperCase();\nconst return_id = `RET-${date}-${rand}`;\n\nreturn [{\n  json: {\n    return_row: {\n      return_id,\n      created_at: now.toISOString(),\n      order_id: p.order_id,\n      customer_email: p.customer_email,\n      sku: p.sku,\n      reason: p.reason,\n      product_condition: p.product_condition,\n      eligibility: d.eligibility,\n      eligibility_reason: d.eligibility_reason,\n      status: \"PENDING\",\n      refund_amount: d.refund_amount,\n      notes: \"\",\n      last_updated: now.toISOString(),\n      dedupe_key: d.dedupe_key\n    },\n    return_id,\n    eligibility: d.eligibility,\n    eligibility_reason: d.eligibility_reason,\n    refund_amount: d.refund_amount,\n    payload: p,\n    order: d.order,\n    product: d.product\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2544,
+        -336
+      ],
+      "id": "bb4b7546-f6e9-4aec-99dc-3655f5d65459",
+      "name": "Build Return Row"
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "#logistics",
+          "mode": "name"
+        },
+        "text": "={{ $('Create return').item.json.eligibility_reason }}",
+        "otherOptions": {}
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.4,
+      "position": [
+        3168,
+        -400
+      ],
+      "id": "d33cc6a6-7fc3-4b79-a24e-bf65101f3d3d",
+      "name": "Send to Logistics for eligible",
+      "webhookId": "6229b7be-47e4-44de-aa16-d63b1d11c5ee",
+      "credentials": {
+        "slackApi": {
+          "id": "6ptBpGK6lF5a8kD9",
+          "name": "Slack account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "#support",
+          "mode": "name"
+        },
+        "text": "={{ $json.eligibility_reason }}",
+        "otherOptions": {}
+      },
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.4,
+      "position": [
+        3168,
+        -240
+      ],
+      "id": "a753cd81-9880-4892-a79f-f8b77bf5edca",
+      "name": "Send to support for not eligible",
+      "webhookId": "bc2ba379-92d3-4881-8ccf-889a26309c1b",
+      "credentials": {
+        "slackApi": {
+          "id": "6ptBpGK6lF5a8kD9",
+          "name": "Slack account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "a28c1b5f-025e-4969-80d8-af5b33bed9ee",
+              "leftValue": "={{ $json.eligibility }}",
+              "rightValue": false,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        2960,
+        -336
+      ],
+      "id": "1e3550e9-67a8-4292-89dd-1b97a7bc6e56",
+      "name": "If eligible"
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1JgFE5DXQSSWsJDUX27WBdig2w_LsSeQWS1PUIVAtyoo/edit?gid=316008437#gid=316008437",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Returns",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "return_id": "={{ $json.return_row.return_id }}",
+            "created_at": "={{ $json.return_row.created_at }}",
+            "order_id": "={{ $json.return_row.order_id }}",
+            "customer_email": "={{ $json.return_row.customer_email }}",
+            "sku": "={{ $json.return_row.sku }}",
+            "reason": "={{ $json.return_row.reason }}",
+            "product_condition": "={{ $json.return_row.product_condition }}",
+            "eligibility": "={{ $json.return_row.eligibility }}",
+            "eligibility_reason": "={{ $json.return_row.eligibility_reason }}",
+            "status": "={{ $json.return_row.status }}",
+            "refund_amount": "={{ $json.return_row.refund_amount }}",
+            "notes": "={{ $json.return_row.notes }}",
+            "last_updated": "={{ $json.return_row.last_updated }}",
+            "dedupe_key": "={{ $json.return_row.dedupe_key }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "return_id",
+              "displayName": "return_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "created_at",
+              "displayName": "created_at",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "order_id",
+              "displayName": "order_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "customer_email",
+              "displayName": "customer_email",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "sku",
+              "displayName": "sku",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "reason",
+              "displayName": "reason",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "product_condition",
+              "displayName": "product_condition",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "eligibility",
+              "displayName": "eligibility",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "eligibility_reason",
+              "displayName": "eligibility_reason",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "status",
+              "displayName": "status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "refund_amount",
+              "displayName": "refund_amount",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "notes",
+              "displayName": "notes",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "last_updated",
+              "displayName": "last_updated",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "dedupe_key",
+              "displayName": "dedupe_key",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "return_row",
+              "displayName": "return_row",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "payload",
+              "displayName": "payload",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "order",
+              "displayName": "order",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "product",
+              "displayName": "product",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        2752,
+        -336
+      ],
+      "id": "71f1d9a8-bc5f-42c0-9c6f-a2bdadea5783",
+      "name": "Create return",
+      "credentials": {
+        "googleApi": {
+          "id": "HAP171yklVw6azAU",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const r = $node[\"Build Return Row\"].json;\n\nreturn [{\n  json: {\n    timestamp: new Date().toISOString(),\n    level: \"INFO\",\n    event_type: \"return_created\",\n    return_id: r.return_id,\n    message: `Retour créé. eligibility=${r.eligibility} refund=${r.refund_amount}`,\n    error_details: \"\"\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        2976,
+        -32
+      ],
+      "id": "a8678576-a06e-41e2-93a9-d9262dfd32a8",
+      "name": "return_created (log)"
+    },
+    {
+      "parameters": {
+        "authentication": "serviceAccount",
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "https://docs.google.com/spreadsheets/d/1JgFE5DXQSSWsJDUX27WBdig2w_LsSeQWS1PUIVAtyoo/edit?gid=316008437#gid=316008437",
+          "mode": "url"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Logs",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "timestamp": "={{ $json.timestamp }}",
+            "level": "={{ $json.level }}",
+            "event_type": "={{ $json.event_type }}",
+            "return_id": "={{ $json.return_id }}",
+            "message": "={{ $json.message }}",
+            "error_details": "={{ $json.error_details }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "timestamp",
+              "displayName": "timestamp",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "level",
+              "displayName": "level",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "event_type",
+              "displayName": "event_type",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "return_id",
+              "displayName": "return_id",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "message",
+              "displayName": "message",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
+            {
+              "id": "error_details",
+              "displayName": "error_details",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        3184,
+        -32
+      ],
+      "id": "a8cab8e9-4e3b-48e7-845a-09c5ca31e1c3",
+      "name": "log to sheets",
+      "credentials": {
+        "googleApi": {
+          "id": "HAP171yklVw6azAU",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "return [{\n  json: {\n    ok: false,\n    error: \"ORDER_NOT_FOUND\",\n    order_id: $node[\"ValidateNormalize\"].json.payload.order_id\n  }\n}];\n"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1136,
+        -208
+      ],
+      "id": "9a142d0e-fbd7-413e-b0ef-6c45b5a8a6d1",
+      "name": "Order not found"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"ok\": false,\n  \"error\": \"ORDER_NOT_FOUND\",\n  \"order_id\": \"={{$node['ValidateNormalize'].json.payload.order_id}}\"\n}\n",
+        "options": {
+          "responseCode": 404
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1344,
+        -208
+      ],
+      "id": "95723bf6-bd7b-4955-9e9e-7ee51b7ce921",
+      "name": "Respond - ORDER_NOT_FOUND"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"ok\": true,\n  \"return_id\": \"={{$node['Build Return Row'].json.return_id}}\",\n  \"eligibility\": \"={{$node['Build Return Row'].json.eligibility}}\",\n  \"refund_amount\": \"={{$node['Build Return Row'].json.refund_amount}}\",\n  \"message\": \"Retour enregistré et en attente de confirmation\"\n}\n",
+        "options": {
+          "responseCode": 201
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        3168,
+        -544
+      ],
+      "id": "ed6431ab-be35-419b-8a10-e5ca36785f09",
+      "name": "SUCCESS"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"ok\": false,\n  \"error\": \"DUPLICATE_RETURN\",\n  \"return_id\": \"={{$node['CheckDuplicate'].json.existing_return_id}}\"\n}\n",
+        "options": {
+          "responseCode": 409
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        2400,
+        -736
+      ],
+      "id": "d8199549-1f97-45ed-950c-aac7110cb2f8",
+      "name": "DUPLICATE_RETURN"
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={\n  \"ok\": false,\n  \"error\": \"SKU_NOT_FOUND\",\n  \"sku\": \"={{$node['ValidateNormalize'].json.payload.sku}}\"\n}\n",
+        "options": {
+          "responseCode": 404
+        }
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        1696,
+        -496
+      ],
+      "id": "81eb00ea-a5dd-4b4e-b57e-3bbb2693d17d",
+      "name": "SKU_NOT_FOUND"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "If Ok": {
+      "main": [
+        [
+          {
+            "node": "Lookup order",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "returns webhook": {
+      "main": [
+        [
+          {
+            "node": "ValidateNormalize",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lookup order": {
+      "main": [
+        [
+          {
+            "node": "FindOrder",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If Order found": {
+      "main": [
+        [
+          {
+            "node": "Lookup Product",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Order not found",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Lookup Product": {
+      "main": [
+        [
+          {
+            "node": "FindProduct",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If Product found": {
+      "main": [
+        [
+          {
+            "node": "Read returns",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "SKU_NOT_FOUND",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read returns": {
+      "main": [
+        [
+          {
+            "node": "CheckDuplicate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF duplicate": {
+      "main": [
+        [
+          {
+            "node": "DUPLICATE_RETURN",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Compute Eligibility",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ValidateNormalize": {
+      "main": [
+        [
+          {
+            "node": "If Ok",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FindOrder": {
+      "main": [
+        [
+          {
+            "node": "If Order found",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "FindProduct": {
+      "main": [
+        [
+          {
+            "node": "If Product found",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "CheckDuplicate": {
+      "main": [
+        [
+          {
+            "node": "IF duplicate",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Compute Eligibility": {
+      "main": [
+        [
+          {
+            "node": "Build Return Row",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Return Row": {
+      "main": [
+        [
+          {
+            "node": "Create return",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If eligible": {
+      "main": [
+        [
+          {
+            "node": "Send to Logistics for eligible",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "SUCCESS",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send to support for not eligible",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create return": {
+      "main": [
+        [
+          {
+            "node": "If eligible",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "return_created (log)",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "return_created (log)": {
+      "main": [
+        [
+          {
+            "node": "log to sheets",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Order not found": {
+      "main": [
+        [
+          {
+            "node": "Respond - ORDER_NOT_FOUND",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Respond - ORDER_NOT_FOUND": {
+      "main": [
+        []
+      ]
+    },
+    "SKU_NOT_FOUND": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "a4c65914-82a5-4c6f-8ad9-31d83b8e0c4c",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "f54fd7294345d002364bebdff42099be08439ba5563f2229a102ff8ac3f6b252"
+  },
+  "id": "EMoBn5G4K1wNjgaplpHRR",
+  "tags": []
+}
